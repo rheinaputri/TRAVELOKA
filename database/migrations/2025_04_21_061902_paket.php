@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('paket_wisata', function (Blueprint $table) {
+        Schema::create('paket', function (Blueprint $table) {
             $table->id('id_paket'); // PRIMARY KEY + AUTO_INCREMENT
             $table->unsignedBigInteger('id_kota'); // FOREIGN KEY ke tabel kota
             $table->string('nama_paket', 250);
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             // FOREIGN KEY CONSTRAINT
-            $table->foreign('id_kota')->references('id_kota')->on('kota')->onDelete('cascade');
+            $table->foreign('id_kota')->references('id_kota')->on('kota');
         });
     }
 

@@ -25,9 +25,9 @@ return new class extends Migration
             $table->timestamps(); // created_at dan updated_at
 
             // Foreign key constraints
-            $table->foreign('id_wisatawan')->references('id_wisatawan')->on('wisatawan')->onDelete('cascade');
-            $table->foreign('id_kota')->references('id_kota')->on('kota')->onDelete('cascade');
-            $table->foreign('id_paket')->references('id_paket')->on('paket')->onDelete('cascade');
+            $table->foreign('id_wisatawan')->references('id_wisatawan')->on('wisatawan');
+            $table->foreign('id_kota')->references('id_kota')->on('kota');
+            $table->foreign('id_paket')->references('id_paket')->on('paket');
         });
     }
 

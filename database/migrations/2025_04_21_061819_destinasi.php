@@ -19,8 +19,8 @@ return new class extends Migration
             $table->timestamps();
 
             // Foreign Key Constraints (kalau tabel relasinya sudah ada)
-            $table->foreign('id_kota')->references('id_kota')->on('kota')->onDelete('cascade');
-            $table->foreign('id_paket')->references('id_paket')->on('paket')->onDelete('cascade');
+            $table->foreign('id_kota')->references('id_kota')->on('kota');
+            $table->foreign('id_paket')->references('id_paket')->on('paket');
         });
     }
 

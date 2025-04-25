@@ -1,4 +1,4 @@
-@empty($destinasi)
+@empty($pemesanan)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,44 +11,56 @@
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/destinasi') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/pemesanan') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/destinasi/' . $destinasi->id_destinasi . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/pemesanan/' . $pemesanan->id_pemesanan . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data destinasi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data pemesanan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria- label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
                 <div class="modal-body">
-                    <div class="alert alert-warning">
+                    <div class="alert alert-danger">
                         <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
                         Apakah Anda ingin menghapus data seperti di bawah ini?
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Nama Destinasi :</th>
-                            <td class="col-9">{{ $destinasi->nama_destinasi }}</td>
+                            <th class="text-right col-3">Nama Wisatawan</th>
+                            <td class="col-9">{{ $pemesanan->wisatawan->nama_wisatawan }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Kota :</th>
-                            <td class="col-9">{{ $destinasi->nama_kota }}</td>
+                            <th class="text-right col-3">Nama Kota</th>
+                            <td class="col-9">{{ $pemesanan->kota->nama_kota }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Paket :</th>
-                            <td class="col-9">{{ $destinasi->nama_paket }}</td>
+                            <th class="text-right col-3">Nama Paket</th>
+                            <td class="col-9">{{ $pemesanan->paket->nama_paket }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Jumlah Orang</th>
+                            <td class="col-9">{{ $pemesanan->jumlah_orang }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Tanggal Berangkat</th>
+                            <td class="col-9">{{ $pemesanan->tanggal_berangkat }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Tanggal Kembali</th>
+                            <td class="col-9">{{ $pemesanan->tanggal_kembali }}</td>
                         </tr>
                     </table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
-                    <button type="submit" class="btn btn-primary">Ya, Hapus</button>
+                    <button type="submit" class="btn btn-danger">Ya, Hapus</button>
                 </div>
             </div>
         </div>
@@ -56,10 +68,11 @@
     <script>
         $(document).ready(function() {
             $("#form-delete").validate({
+                rules: {},
                 submitHandler: function(form) {
                     $.ajax({
                         url: form.action,
-                        type: 'POST', // <-- FIX: selalu POST!
+                        type: form.method,
                         data: $(form).serialize(),
                         success: function(response) {
                             if (response.status) {
@@ -69,10 +82,10 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                datadestinasi.ajax.reload();
+                                dataPemesanan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField ?? {}, function(prefix, val) {
+                                $.each(response.msgField, function(prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
@@ -81,13 +94,6 @@
                                     text: response.message
                                 });
                             }
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Terjadi kesalahan saat menghapus data.'
-                            });
                         }
                     });
                     return false;
@@ -97,10 +103,10 @@
                     error.addClass('invalid-feedback');
                     element.closest('.form-group').append(error);
                 },
-                highlight: function(element) {
+                highlight: function(element, errorClass, validClass) {
                     $(element).addClass('is-invalid');
                 },
-                unhighlight: function(element) {
+                unhighlight: function(element, errorClass, validClass) {
                     $(element).removeClass('is-invalid');
                 }
             });

@@ -25,20 +25,8 @@
 
             <!-- Data Destinasi -->
             <li class="nav-header">Informasi Wisata</li>
-            <!-- Data Kota -->
-            <li class="nav-item">
-                <a href="{{ url('/kota') }}" class="nav-link {{ $activeMenu == 'kota' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-city"></i>
-                    <p>Kota</p>
-                </a>
-            </li>
 
-            <li class="nav-item">
-                <a href="{{ url('/destinasi') }}" class="nav-link {{ $activeMenu == 'destinasi' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-map-signs"></i>
-                    <p>Destinasi</p>
-                </a>
-            </li>
+
 
             <!-- Wisatawan -->
             <li class="nav-item">
@@ -49,14 +37,6 @@
                 </a>
             </li>
 
-            <li class="nav-header">Paket Wisata</li>
-            <!-- Paket Wisata -->
-            <li class="nav-item">
-                <a href="{{ url('/paket') }}" class="nav-link {{ $activeMenu == 'paket' ? 'active' : '' }}">
-                    <i class="nav-icon fas fa-box-open"></i>
-                    <p>Paket Wisata</p>
-                </a>
-            </li>
 
             <!-- Pemesanan -->
             <li class="nav-header">Transaksi</li>

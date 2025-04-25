@@ -9,15 +9,20 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class WisatawanModel extends Model
 {
-    // use HasFactory;
+    use HasFactory;
 
     protected $table = 'wisatawan';
     protected $primaryKey = 'id_wisatawan';
     protected $fillable = ['nama_wisatawan', 'jenis_kelamin', 'usia', 'alamat', 'email', 'no_telp'];
 
 
-    // public function paket()
-    // {
-    //     return $this->hasMany(PemesananModel::class, 'id_wisatawan');
-    // }
+    public function paket()
+    {
+        return $this->hasMany(PemesananModel::class, 'id_wisatawan');
+    }
+
+    public function formpesan()
+    {
+        return $this->hasMany(PemesananModel::class, 'id_pemesanan');
+    }
 }

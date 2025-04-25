@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\DestinasiController;
+use App\Http\Controllers\FormpesanController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\WisatawanController;
 use App\Http\Controllers\PaketController;
@@ -55,7 +56,8 @@ Route::group(['prefix' => 'kota'], function () {
 // ------------------------------- Paket ---------------------------------
 
 Route::group(['prefix' => 'paket'], function () {
-    Route::get('/', [PaketController::class, 'index'])->name('paket.index');                                    // Menampilkan halaman daftar paket
+    Route::get('/', [PaketController::class, 'index'])->name('paket.index');
+    Route::get('/indexpaket', [PaketController::class, 'indexpaket'])->name('paket.indexpaket');                                    // Menampilkan halaman daftar paket
     Route::get('/list', [PaketController::class, 'list'])->name('paket.list');                                  // Mengambil data paket (AJAX)
     Route::get('/create_ajax', [PaketController::class, 'create_ajax'])->name('paket.create_ajax');             // Form tambah paket (AJAX)
     Route::post('/ajax', [PaketController::class, 'store_ajax'])->name('store_ajax');                           // Simpan data paket (AJAX)
@@ -69,7 +71,8 @@ Route::group(['prefix' => 'paket'], function () {
 // ----------------------------- Destinasi ------------------------------
 
 Route::group(['prefix' => 'destinasi'], function () {
-    Route::get('/', [DestinasiController::class, 'index'])->name('destinasi.index');                                // Menampilkan halaman daftar destinasi
+    Route::get('/', [DestinasiController::class, 'index'])->name('destinasi.index');
+    Route::get('/indexweb', [DestinasiController::class, 'indexweb'])->name('destinasi.indexweb');                                // Menampilkan halaman daftar destinasi                                // Menampilkan halaman daftar destinasi
     Route::get('/list', [DestinasiController::class, 'list'])->name('destinasi.list');                              // Mengambil data destinasi (AJAX)
     Route::get('/create_ajax', [DestinasiController::class, 'create_ajax'])->name('destinasi.create_ajax');         // Form tambah destinasi (AJAX)
     Route::post('/ajax', [DestinasiController::class, 'store_ajax'])->name('destinasi.store_ajax');                 // Simpan data destinasi (AJAX)
@@ -83,7 +86,8 @@ Route::group(['prefix' => 'destinasi'], function () {
 // ----------------------------- Wisatawan ------------------------------
 
 Route::group(['prefix' => 'wisatawan'], function () {
-    Route::get('/', [WisatawanController::class, 'index'])->name('wisatawan.index');                                // Halaman utama wisatawan
+    Route::get('/', [WisatawanController::class, 'index'])->name('wisatawan.index');
+    Route::get('/', [WisatawanController::class, 'index2'])->name('wisatawan.index2');                                // Halaman utama wisatawan                                // Halaman utama wisatawan
     Route::get('/list', [WisatawanController::class, 'list'])->name('wisatawan.list');                              // Mengambil data wisatawan (AJAX)
     Route::get('/create_ajax', [WisatawanController::class, 'create_ajax'])->name('wisatawan.create_ajax');         // Form tambah wisatawan (AJAX)
     Route::post('/ajax', [WisatawanController::class, 'store_ajax'])->name('wisatawan.store_ajax');                 // Simpan data wisatawan (AJAX)
@@ -97,7 +101,8 @@ Route::group(['prefix' => 'wisatawan'], function () {
 // ----------------------------- Pemesanan ------------------------------
 
 Route::group(['prefix' => 'pemesanan'], function () {
-    Route::get('/', [PemesananController::class, 'index'])->name('pemesanan.index');                                 // Halaman utama pemesanan
+    Route::get('/', [PemesananController::class, 'index'])->name('pemesanan.index');
+    // Route::get('/', [PemesananController::class, 'index2'])->name('pemesanan.index2'); // Halaman utama pemesanan // Halaman utama pemesanan
     Route::get('/list', [PemesananController::class, 'list'])->name('pemesanan.list');                               // Mengambil data pemesanan (AJAX)
     Route::get('/create_ajax', [PemesananController::class, 'create_ajax'])->name('pemesanan.create_ajax');          // Form tambah pemesanan (AJAX)
     Route::post('/ajax', [PemesananController::class, 'store_ajax'])->name('pemesanan.store_ajax');                  // Simpan data pemesanan (AJAX)
@@ -106,4 +111,32 @@ Route::group(['prefix' => 'pemesanan'], function () {
     Route::get('/{id}/show_ajax', [PemesananController::class, 'show_ajax'])->name('pemesanan.show_ajax');           // Detail pemesanan (AJAX)
     Route::get('/{id}/delete_ajax', [PemesananController::class, 'confirm_ajax'])->name('pemesanan.confirm_ajax');   // Konfirmasi hapus pemesanan (AJAX)
     Route::delete('/{id}/delete_ajax', [PemesananController::class, 'delete_ajax'])->name('pemesanan.delete_ajax');  // Hapus data pemesanan (AJAX)
+});
+
+
+
+// Route::group(['prefix' => 'pesan'], function () {
+//     Route::get('/', [PesanController::class, 'indexpesan'])->name('pesan.indexpesan'); // Halaman utama pesan
+//     Route::get('/list', [PesanController::class, 'list'])->name('pesan.list'); // Mengambil data pesan (AJAX)
+//     Route::get('/create_ajax', [PesanController::class, 'create_ajax'])->name('pesan.create_ajax'); // Form tambah pesan (AJAX)
+//     Route::post('/ajax', [PesanController::class, 'store_ajax'])->name('pesan.store_ajax'); // Simpan data pesan (AJAX)
+//     Route::get('/{id}/edit_ajax', [PesanController::class, 'edit_ajax'])->name('pesan.edit_ajax'); // Form edit pesan (AJAX)
+//     Route::put('/{id}/update_ajax', [PesanController::class, 'update_ajax'])->name('pesan.update_ajax'); // Update data pesan (AJAX)
+//     Route::get('/{id}/show_ajax', [PesanController::class, 'show_ajax'])->name('pesan.show_ajax'); // Detail pesan (AJAX)
+//     Route::get('/{id}/delete_ajax', [PesanController::class, 'confirm_ajax'])->name('pesan.confirm_ajax'); // Konfirmasi hapus pesan (AJAX)
+//     Route::delete('/{id}/delete_ajax', [PesanController::class, 'delete_ajax'])->name('pesan.delete_ajax'); // Hapus data pesan (AJAX)
+// });
+
+
+Route::group(['prefix' => 'formpesan'], function () {
+    Route::get('/', [FormpesanController::class, 'index'])->name('formpesan.index');
+    // Route::get('/', [FormpesanController::class, 'index2'])->name('formpesan.index2'); // Halaman utama pemesanan
+    Route::get('/list', [FormpesanController::class, 'list'])->name('formpesan.list'); // Mengambil data pemesanan (AJAX)
+    Route::get('/create_ajax', [FormpesanController::class, 'create_ajax'])->name('formpesan.create_ajax'); // Form tambah pemesanan (AJAX)
+    Route::post('/ajax', [FormpesanController::class, 'store_ajax'])->name('formpesan.store_ajax'); // Simpan data pemesanan (AJAX)
+    Route::get('/{id}/edit_ajax', [FormpesanController::class, 'edit_ajax'])->name('formpesan.edit_ajax'); // Form edit pemesanan (AJAX)
+    Route::put('/{id}/update_ajax', [FormpesanController::class, 'update_ajax'])->name('formpesan.update_ajax'); // Update data pemesanan (AJAX)
+    Route::get('/{id}/show_ajax', [FormpesanController::class, 'show_ajax'])->name('formpesan.show_ajax'); // Detail pemesanan (AJAX)
+    Route::get('/{id}/delete_ajax', [FormpesanController::class, 'confirm_ajax'])->name('formpesan.confirm_ajax'); // Konfirmasi hapus pemesanan (AJAX)
+    Route::delete('/{id}/delete_ajax', [FormpesanController::class, 'delete_ajax'])->name('formpesan.delete_ajax'); // Hapus data pemesanan (AJAX)
 });

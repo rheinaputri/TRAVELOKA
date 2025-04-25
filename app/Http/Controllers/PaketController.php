@@ -30,6 +30,24 @@ class PaketController extends Controller
             'paket' => $paket,
         ]);
     }
+    public function indexpaket()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar paket',
+            'list' => ['Home', 'paket'],
+        ];
+        $page = (object) [
+            'title' => 'Daftar paket yang terdaftar dalam sistem',
+        ];
+        $activeMenu = 'paket';
+        $paket = PaketModel::all();
+        return view('paket.indexpaket', [
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu,
+            'page' => $page,
+            'paket' => $paket,
+        ]);
+    }
 
     // untuk menampilkan list data
     public function list(Request $request)

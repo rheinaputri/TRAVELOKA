@@ -32,6 +32,27 @@ class DestinasiController extends Controller
         ]);
     }
 
+    public function indexweb()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar destinasi',
+            'list' => ['Home', 'destinasi'],
+        ];
+        $page = (object) [
+            'title' => 'Daftar destinasi yang terdaftar dalam sistem',
+        ];
+        $activeMenu = 'destinasi';
+        $destinasi = DestinasiModel::all();
+        return view('destinasi.indexweb', [
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu,
+            'page' => $page,
+            'destinasi' => $destinasi,
+        ]);
+    }
+    
+    
+
     // untuk menampilkan list data
     public function list(Request $request)
     {

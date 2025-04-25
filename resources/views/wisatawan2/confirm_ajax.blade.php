@@ -1,31 +1,35 @@
-@empty($destinasi)
+@empty($wisatawan)
     <div id="modal-master" class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Kesalahan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria- label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="alert alert-danger">
                     <h5><i class="icon fas fa-ban"></i> Kesalahan!!!</h5>
                     Data yang anda cari tidak ditemukan
                 </div>
-                <a href="{{ url('/destinasi') }}" class="btn btn-warning">Kembali</a>
+                <a href="{{ url('/wisatawan') }}" class="btn btn-warning">Kembali</a>
             </div>
         </div>
     </div>
 @else
-    <form action="{{ url('/destinasi/' . $destinasi->id_destinasi . '/delete_ajax') }}" method="POST" id="form-delete">
+    <form action="{{ url('/wisatawan/' . $wisatawan->id_wisatawan . '/delete_ajax') }}" method="POST" id="form-delete">
         @csrf
         @method('DELETE')
+
         <div id="modal-master" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data destinasi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria- label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Wisatawan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
                 <div class="modal-body">
                     <div class="alert alert-warning">
                         <h5><i class="icon fas fa-ban"></i> Konfirmasi !!!</h5>
@@ -33,19 +37,32 @@
                     </div>
                     <table class="table table-sm table-bordered table-striped">
                         <tr>
-                            <th class="text-right col-3">Nama Destinasi :</th>
-                            <td class="col-9">{{ $destinasi->nama_destinasi }}</td>
+                            <th class="text-right col-3">Nama Wisatawan :</th>
+                            <td class="col-9">{{ $wisatawan->nama_wisatawan }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Kota :</th>
-                            <td class="col-9">{{ $destinasi->nama_kota }}</td>
+                            <th class="text-right col-3">Jenis Kelamin :</th>
+                            <td class="col-9">{{ $wisatawan->jenis_kelamin }}</td>
                         </tr>
                         <tr>
-                            <th class="text-right col-3">Nama Paket :</th>
-                            <td class="col-9">{{ $destinasi->nama_paket }}</td>
+                            <th class="text-right col-3">Usia :</th>
+                            <td class="col-9">{{ $wisatawan->usia }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Alamat :</th>
+                            <td class="col-9">{{ $wisatawan->alamat }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">Email :</th>
+                            <td class="col-9">{{ $wisatawan->email }}</td>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-3">No Telp :</th>
+                            <td class="col-9">{{ $wisatawan->no_telp }}</td>
                         </tr>
                     </table>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" data-dismiss="modal" class="btn btn-warning">Batal</button>
                     <button type="submit" class="btn btn-primary">Ya, Hapus</button>
@@ -53,13 +70,15 @@
             </div>
         </div>
     </form>
+
     <script>
         $(document).ready(function() {
             $("#form-delete").validate({
+                rules: {},
                 submitHandler: function(form) {
                     $.ajax({
                         url: form.action,
-                        type: 'POST', // <-- FIX: selalu POST!
+                        type: form.method,
                         data: $(form).serialize(),
                         success: function(response) {
                             if (response.status) {
@@ -69,10 +88,10 @@
                                     title: 'Berhasil',
                                     text: response.message
                                 });
-                                datadestinasi.ajax.reload();
+                                dataWisatawan.ajax.reload();
                             } else {
                                 $('.error-text').text('');
-                                $.each(response.msgField ?? {}, function(prefix, val) {
+                                $.each(response.msgField, function(prefix, val) {
                                     $('#error-' + prefix).text(val[0]);
                                 });
                                 Swal.fire({
@@ -81,13 +100,6 @@
                                     text: response.message
                                 });
                             }
-                        },
-                        error: function(xhr) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: 'Terjadi kesalahan saat menghapus data.'
-                            });
                         }
                     });
                     return false;

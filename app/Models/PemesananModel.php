@@ -33,4 +33,6 @@ class PemesananModel extends Model
     {
         return $this->belongsTo(PaketModel::class, 'id_paket');
     }
+
+    
 }

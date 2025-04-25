@@ -30,6 +30,25 @@ class WisatawanController extends Controller
         ]);
     }
 
+    public function index2()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Daftar wisatawan',
+            'list' => ['Home', 'wisatawan'],
+        ];
+        $page = (object) [
+            'title' => 'Daftar wisatawan yang terdaftar dalam sistem',
+        ];
+        $activeMenu = 'wisatawan';
+        $wisatawan = WisatawanModel::all();
+        return view('wisatawan2.index', [
+            'breadcrumb' => $breadcrumb,
+            'activeMenu' => $activeMenu,
+            'page' => $page,
+            'wisatawan' => $wisatawan,
+        ]);
+    }
+
     // untuk menampilkan list data
     public function list(Request $request)
     {
